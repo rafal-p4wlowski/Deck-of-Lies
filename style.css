@@ -1,0 +1,917 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ukrywanie paska przewijania */
+.no-scrollbar {
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE i Edge */
+    overflow-y: auto;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    /* Chrome, Safari i Opera */
+    display: none;
+}
+
+/* Główny układ trzykolumnowy */
+#main-layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 0;
+}
+
+/* Style dla skrótów klawiaturowych */
+#keyboard-shortcuts {
+    width: 240px;
+    background-color: #2a2a2a;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    height: 100%;
+    overflow-y: auto;
+}
+
+#keyboard-shortcuts h3 {
+    margin-bottom: 15px;
+    text-align: center;
+    color: #ff4040;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+}
+
+#keyboard-shortcuts ul {
+    list-style: none;
+}
+
+#keyboard-shortcuts li {
+    margin: 10px 0;
+}
+
+#keyboard-shortcuts li.divider {
+    margin: 15px 0;
+    border-top: 1px dashed #444;
+    padding-top: 15px;
+}
+
+kbd {
+    background-color: #333;
+    border-radius: 3px;
+    border: 1px solid #777;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+    color: #eee;
+    display: inline-block;
+    font-size: 0.9em;
+    font-weight: bold;
+    line-height: 1;
+    padding: 3px 6px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+/* Główny kontener gry */
+#game-container {
+    flex: 1;
+    background-color: #2a2a2a;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    min-width: 0;  /* Ważne dla zachowania elastyczności */
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* Log gry - prawa kolumna */
+#game-log {
+    width: 240px;
+    background-color: #2a2a2a;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#game-log h3 {
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ff4040;
+    border-bottom: 1px solid #444;
+    padding-bottom: 8px;
+}
+
+#log-entries {
+    height: calc(100% - 40px);
+    overflow-y: auto;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Pozostałe style */
+h1 {
+    text-align: center;
+    color: #ff4040;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+h2,
+h3 {
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+button {
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #4a4a4a;
+}
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+button#challenge-liar {
+    background-color: #8b0000;
+}
+
+button#challenge-liar:hover {
+    background-color: #a00000;
+}
+
+button#take-shot {
+    background-color: #7a0000;
+    font-weight: bold;
+}
+
+button#take-shot:hover {
+    background-color: #900000;
+}
+
+/* Ujednolicenie stylów dla wszystkich przycisków play-card */
+#play-card,
+#play-card-2,
+#play-card-3 {
+    background-color: #3a3a3a;
+    color: #f0f0f0;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px;
+}
+
+#play-card:hover,
+#play-card-2:hover,
+#play-card-3:hover {
+    background-color: #4a4a4a;
+}
+
+.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Style dla menu głównego */
+#main-menu {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.menu-buttons button {
+    width: 200px;
+    padding: 15px;
+    font-size: 1.1em;
+    background-color: #3a3a3a;
+    transition: transform 0.2s;
+}
+
+.menu-buttons button:hover {
+    transform: scale(1.05);
+    background-color: #4a4a4a;
+}
+
+/* Style dla menu zasad */
+.rules-content {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.rules-content h3 {
+    color: #ff4040;
+    margin-top: 20px;
+}
+
+.rules-content p,
+.rules-content li {
+    margin-bottom: 10px;
+}
+
+.rules-content ol,
+.rules-content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+#back-to-main,
+#back-to-main-from-setup,
+#back-to-main-from-settings {
+    margin-top: 20px;
+    background-color: #444;
+}
+
+/* Setup Menu Styles */
+#setup-menu {
+    text-align: center;
+}
+
+#player-setup {
+    margin: 20px 0;
+}
+
+.player-entry {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-name {
+    padding: 8px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+/* Rozszerzenie istniejących stylów */
+.setup-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.setup-actions button {
+    width: 200px;
+}
+
+/* Game Screen Styles */
+.game-info {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #333;
+    border-radius: 5px;
+}
+
+#players-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.player-card {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.player-card.active {
+    background-color: #444;
+    box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+    border: 1px solid #ff4040;
+}
+
+/* Style dla układu przycisków */
+.game-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+    gap: 15px;
+}
+
+.card-play-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.challenge-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.bottom-actions {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.log-entry {
+    border-bottom: 1px solid #444;
+    padding: 5px 0;
+}
+
+/* Modal Styles */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #555;
+    width: 300px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.result-display {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.success {
+    color: #4CAF50;
+}
+
+.failure {
+    color: #f44336;
+}
+
+/* Styl dla zwycięzców */
+.player-card.winner {
+    background-color: #2e8b57;
+    /* SeaGreen - odcień zielonego */
+    box-shadow: 0 0 10px rgba(64, 255, 64, 0.5);
+    border: 1px solid #4caf50;
+    animation: winner-glow 2s infinite alternate;
+}
+
+@keyframes winner-glow {
+    from {
+        box-shadow: 0 0 5px rgba(64, 255, 64, 0.5);
+    }
+
+    to {
+        box-shadow: 0 0 15px rgba(64, 255, 64, 0.8);
+    }
+}
+
+/* Style dla martwych graczy i przegranych */
+.player-card.dead,
+.player-card.loser {
+    background-color: #993333; /* Ciemny czerwony */
+    box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+    border: 1px solid #f44336;
+    animation: dead-glow 2s infinite alternate;
+    opacity: 0.9;
+}
+
+@keyframes dead-glow {
+    from {
+        box-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+    }
+
+    to {
+        box-shadow: 0 0 15px rgba(255, 64, 64, 0.8);
+    }
+}
+
+/* Card Styles */
+#table-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.card {
+    width: 113px;
+    height: 158px;
+    margin: 8px;
+    perspective: 1000px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 3em;
+    position: relative;
+}
+
+/* Poprawka dla rewersu karty, aby wyświetlał się dokładnie w tym samym miejscu co awers */
+.flipper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+.card .face,
+.card .back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.card .face {
+    background: #fff;
+    z-index: 2;
+}
+
+.card .back {
+    transform: rotateY(180deg);
+    background: #bf0000;
+    overflow: hidden;
+}
+
+/* Usuwamy position: relative z .face, ponieważ to może powodować przesunięcie */
+.face {
+    background: #fff;
+    z-index: 2;
+    /* position: relative; - usuwamy tę właściwość */
+}
+
+.card.flip .flipper {
+    transform: rotateY(180deg);
+}
+
+.cards--poker .card .back {
+    background: #bf0000;
+    overflow: hidden;
+}
+
+.cards--poker .card .face {
+    color: #bf0000;
+}
+
+.cards--poker .card.diamonds .face,
+.cards--poker .card.hearts .face {
+    color: #bf0000;
+}
+
+.cards--poker .card.spades .face,
+.cards--poker .card.clubs .face {
+    color: #000;
+}
+
+.cards--poker .card .rank {
+    display: block;
+    position: absolute;
+    padding: 0.25em;
+    font-size: 0.5em;
+    font-weight: bold;
+    top: 5px;
+    left: 5px;
+    z-index: 2;
+}
+
+/* Wspólne style dla wszystkich symboli na kartach */
+.cards--poker .card .suit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+}
+
+/* Style dla asów */
+.cards--poker .card.rank-A .suit {
+    font-size: 3.5em;
+}
+
+.cards--poker .card.rank-A .suit:after {
+    font-size: 0.5em;
+}
+
+/* Style dla figur (J, Q, K) */
+.cards--poker .card.rank-J .suit,
+.cards--poker .card.rank-Q .suit,
+.cards--poker .card.rank-K .suit {
+    font-size: 3.5em;
+}
+
+.cards--poker .card.rank-J .suit:after,
+.cards--poker .card.rank-Q .suit:after,
+.cards--poker .card.rank-K .suit:after {
+    display: block;
+    font-size: 0.5em;
+}
+
+/* Specyficzne symbole figur */
+.cards--poker .card.rank-J .suit:after {
+    content: "\265F";
+}
+
+.cards--poker .card.rank-Q .suit:after {
+    content: "\265B";
+}
+
+.cards--poker .card.rank-K .suit:after {
+    content: "\265A";
+}
+
+/* Style dla kart liczbowych (wyświetlanie symboli) */
+.cards--poker .card.rank-2 .suit,
+.cards--poker .card.rank-3 .suit,
+.cards--poker .card.rank-4 .suit,
+.cards--poker .card.rank-5 .suit,
+.cards--poker .card.rank-6 .suit,
+.cards--poker .card.rank-7 .suit,
+.cards--poker .card.rank-8 .suit,
+.cards--poker .card.rank-9 .suit,
+.cards--poker .card.rank-10 .suit {
+    font-size: 0.32em;
+    letter-spacing: -0.085em;
+    white-space: pre;
+    line-height: 0.75;
+    padding: 1.4em 0;
+}
+
+/* diamonds */
+.cards--poker .card.diamonds .rank:after {
+    content: " \2666";
+}
+
+.cards--poker .card.rank-A.diamonds .suit:after {
+    content: "\2666";
+}
+
+.cards--poker .card.rank-2.diamonds .suit:after {
+    content: "\2666 \A\A\2666";
+}
+
+.cards--poker .card.rank-3.diamonds .suit:after {
+    content: "\2666 \A\2666 \A\2666";
+}
+
+.cards--poker .card.rank-4.diamonds .suit:after {
+    content: "\2666\00A0\00A0\00A0\2666 \A\A\2666\00A0\00A0\00A0\2666";
+}
+
+.cards--poker .card.rank-5.diamonds .suit:after {
+    content: "\2666\00A0\00A0\00A0\2666 \A\2666 \A\2666\00A0\00A0\00A0\2666";
+}
+
+.cards--poker .card.rank-6.diamonds .suit:after {
+    content: "\2666\00A0\00A0\00A0\2666 \A\2666\00A0\00A0\00A0\2666 \A\2666\00A0\00A0\00A0\2666";
+}
+
+.cards--poker .card.rank-7.diamonds .suit:after {
+    content: "\2666\00A0\00A0\2666 \A\2666\00A0\2666\00A0\2666 \A\2666\00A0\00A0\2666";
+}
+
+.cards--poker .card.rank-8.diamonds .suit:after {
+    content: "\2666\00A0\2666\00A0\2666 \A\2666\00A0\00A0\2666 \A\2666\00A0\2666\00A0\2666";
+}
+
+.cards--poker .card.rank-9.diamonds .suit:after {
+    content: "\2666\00A0\2666\00A0\2666 \A\2666\00A0\2666\00A0\2666 \A\2666\00A0\2666\00A0\2666";
+}
+
+.cards--poker .card.rank-10.diamonds .suit:after {
+    content: "\A\A\2666\00A0\00A0\00A0\2666 \A\2666 \A\2666\00A0\00A0\00A0\2666 \A\A\2666\00A0\00A0\00A0\2666 \A\2666 \A\2666\00A0\00A0\00A0\2666";
+}
+
+/* hearts */
+.card.hearts .rank:after {
+    content: " \2665";
+}
+
+.cards--poker .card.rank-A.hearts .suit:after {
+    content: "\2665";
+}
+
+.cards--poker .card.rank-2.hearts .suit:after {
+    content: "\2665 \A\A\2665";
+}
+
+.cards--poker .card.rank-3.hearts .suit:after {
+    content: "\2665 \A\2665 \A\2665";
+}
+
+.cards--poker .card.rank-4.hearts .suit:after {
+    content: "\2665\00A0\00A0\00A0\2665 \A\A\2665\00A0\00A0\00A0\2665";
+}
+
+.cards--poker .card.rank-5.hearts .suit:after {
+    content: "\2665\00A0\00A0\00A0\2665 \A\2665 \A\2665\00A0\00A0\00A0\2665";
+}
+
+.cards--poker .card.rank-6.hearts .suit:after {
+    content: "\2665\00A0\00A0\00A0\2665 \A\2665\00A0\00A0\00A0\2665 \A\2665\00A0\00A0\00A0\2665";
+}
+
+.cards--poker .card.rank-7.hearts .suit:after {
+    content: "\2665\00A0\00A0\2665 \A\2665\00A0\2665\00A0\2665 \A\2665\00A0\00A0\2665";
+}
+
+.cards--poker .card.rank-8.hearts .suit:after {
+    content: "\2665\00A0\2665\00A0\2665 \A\2665\00A0\00A0\2665 \A\2665\00A0\2665\00A0\2665";
+}
+
+.cards--poker .card.rank-9.hearts .suit:after {
+    content: "\2665\00A0\2665\00A0\2665 \A\2665\00A0\2665\00A0\2665 \A\2665\00A0\2665\00A0\2665";
+}
+
+.cards--poker .card.rank-10.hearts .suit:after {
+    content: "\A\A\2665\00A0\00A0\00A0\2665 \A\2665 \A\2665\00A0\00A0\00A0\2665 \A\A\2665\00A0\00A0\00A0\2665 \A\2665 \A\2665\00A0\00A0\00A0\2665";
+}
+
+/* spades */
+.cards--poker .card.spades .rank:after {
+    content: " \2660";
+}
+
+.cards--poker .card.rank-A.spades .suit:after {
+    content: "\2660";
+}
+
+.cards--poker .card.rank-2.spades .suit:after {
+    content: "\2660 \A\A\2660";
+}
+
+.cards--poker .card.rank-3.spades .suit:after {
+    content: "\2660 \A\2660 \A\2660";
+}
+
+.cards--poker .card.rank-4.spades .suit:after {
+    content: "\2660\00A0\00A0\00A0\2660 \A\A\2660\00A0\00A0\00A0\2660";
+}
+
+.cards--poker .card.rank-5.spades .suit:after {
+    content: "\2660\00A0\00A0\00A0\2660 \A\2660 \A\2660\00A0\00A0\00A0\2660";
+}
+
+.cards--poker .card.rank-6.spades .suit:after {
+    content: "\2660\00A0\00A0\00A0\2660 \A\2660\00A0\00A0\00A0\2660 \A\2660\00A0\00A0\00A0\2660";
+}
+
+.cards--poker .card.rank-7.spades .suit:after {
+    content: "\2660\00A0\00A0\2660 \A\2660\00A0\2660\00A0\2660 \A\2660\00A0\00A0\2660";
+}
+
+.cards--poker .card.rank-8.spades .suit:after {
+    content: "\2660\00A0\2660\00A0\2660 \A\2660\00A0\00A0\2660 \A\2660\00A0\2660\00A0\2660";
+}
+
+.cards--poker .card.rank-9.spades .suit:after {
+    content: "\2660\00A0\2660\00A0\2660 \A\2660\00A0\2660\00A0\2660 \A\2660\00A0\2660\00A0\2660";
+}
+
+.cards--poker .card.rank-10.spades .suit:after {
+    content: "\A\A\2660\00A0\00A0\00A0\2660 \A\2660 \A\2660\00A0\00A0\00A0\2660 \A\A\2660\00A0\00A0\00A0\2660 \A\2660 \A\2660\00A0\00A0\00A0\2660";
+
+}
+
+/* clubs */
+.cards--poker .card.clubs .rank:after {
+    content: " \2663";
+}
+
+.cards--poker .card.rank-A.clubs .suit:after {
+    content: "\2663";
+}
+
+.cards--poker .card.rank-2.clubs .suit:after {
+    content: "\2663 \A\A\2663";
+}
+
+.cards--poker .card.rank-3.clubs .suit:after {
+    content: "\2663 \A\2663 \A\2663";
+}
+
+.cards--poker .card.rank-4.clubs .suit:after {
+    content: "\2663\00A0\00A0\00A0\2663 \A\A\2663\00A0\00A0\00A0\2663";
+}
+
+.cards--poker .card.rank-5.clubs .suit:after {
+    content: "\2663\00A0\00A0\00A0\2663 \A\2663 \A\2663\00A0\00A0\00A0\2663";
+}
+
+.cards--poker .card.rank-6.clubs .suit:after {
+    content: "\2663\00A0\00A0\00A0\2663 \A\2663\00A0\00A0\00A0\2663 \A\2663\00A0\00A0\00A0\2663";
+}
+
+.cards--poker .card.rank-7.clubs .suit:after {
+    content: "\2663\00A0\00A0\2663 \A\2663\00A0\2663\00A0\2663 \A\2663\00A0\00A0\2663";
+}
+
+.cards--poker .card.rank-8.clubs .suit:after {
+    content: "\2663\00A0\2663\00A0\2663 \A\2663\00A0\00A0\2663 \A\2663\00A0\2663\00A0\2663";
+}
+
+.cards--poker .card.rank-9.clubs .suit:after {
+    content: "\2663\00A0\2663\00A0\2663 \A\2663\00A0\2663\00A0\2663 \A\2663\00A0\2663\00A0\2663";
+}
+
+.cards--poker .card.rank-10.clubs .suit:after {
+    content: "\A\A\2663\00A0\00A0\00A0\2663 \A\2663 \A\2663\00A0\00A0\00A0\2663 \A\A\2663\00A0\00A0\00A0\2663 \A\2663 \A\2663\00A0\00A0\00A0\2663";
+}
+
+/* Style dla menu ustawień */
+#settings-menu {
+    text-align: center;
+}
+
+.settings-content {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.settings-section {
+    margin-bottom: 30px;
+}
+
+.settings-section h3 {
+    color: #ff4040;
+    margin-bottom: 10px;
+}
+
+.setting-control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.setting-control label {
+    font-weight: bold;
+}
+
+.setting-control input[type="number"], 
+.setting-control select {
+    width: 120px;
+    padding: 5px;
+    background-color: #444;
+    border: 1px solid #555;
+    color: white;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Style dla selektora kart */
+.card-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+    gap: 10px;
+}
+
+/* Style dla kart w menu ustawień */
+.card-selector .card {
+    width: 60px;
+    height: 84px;
+    font-size: 1.5em;
+    margin: 5px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.card-selector .card.disabled {
+    opacity: 0.3;
+}
+
+.card-selector .card.disabled:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.card-selector .card.enabled:before {
+    display: none;
+}
+
+.card-selector .card .rank {
+    font-size: 0.6em;
+}
+
+/* Style dla kart w selektorze, aby były podobne do pełnych kart */
+.card-selector .cards--poker {
+    transform: scale(0.6);
+}
+
+/* Specjalne style dla selektora kart, aby elementy wewnętrzne były widoczne */
+.card-selector .card .suit {
+    visibility: visible !important;
+}
+
+/* Responsywność dla małych ekranów */
+@media (max-width: 1200px) {
+    html, body {
+        overflow: auto;
+    }
+    
+    #main-layout {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    #keyboard-shortcuts, #game-log {
+        width: 100%;
+        margin: 0 auto 20px;
+        position: relative;
+        top: 0;
+        height: auto;
+    }
+    
+    #game-container {
+        order: -1; /* Umieść kontener gry na górze */
+        height: auto;
+        margin-bottom: 20px;
+    }
+    
+    #keyboard-shortcuts {
+        order: 0; /* Umieść skróty klawiaturowe poniżej */
+    }
+    
+    #game-log {
+        order: 1; /* Umieść log gry na samym dole */
+        height: 300px;
+    }
+    
+    #log-entries {
+        height: 240px;
+    }
+}
