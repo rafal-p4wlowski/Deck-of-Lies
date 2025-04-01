@@ -11,6 +11,8 @@ class GameManager {
         this.lastAction = null;
         this.playerToShoot = null;
         this.winnerCount = 0; // Licznik zwycięzców
+        this.isSelectingWinner = false; // Flag for winner selection mode
+        this.playerToDeclareWinner = null; // Player selected to be declared winner
         this.lastGamePlayers = []; // Zapamiętani gracze z ostatniej gry
         this.currentLanguage = 'en'; // Domyślny język to angielski
 
@@ -35,6 +37,7 @@ class GameManager {
                 'keyboard-shortcuts': 'Keyboard Shortcuts',
                 'play-card': 'Perform action',
                 'challenge-liar': 'Challenge liar',
+                'declare-winners': 'Declare winner',
                 'reset': 'Reset game',
                 'return-to-menu': 'Return to menu',
                 'during-challenge': 'During challenge',
@@ -46,6 +49,7 @@ class GameManager {
                 'current-turn': 'Current turn:',
                 'play-card-btn': 'Play/Shoot [Space]',
                 'challenge-liar-btn': 'Challenge liar [C]',
+                'declare-winners-btn': 'Declare winner [W]',
                 'reset-game-btn': 'Reset game [R]',
                 'return-to-menu-btn': 'Return to menu [ESC]',
                 'game-log': 'Game Log:',
@@ -119,7 +123,20 @@ class GameManager {
                 'survived': 'SURVIVED!',
                 'died': 'DIED!',
                 'survival-chance': 'Survival chance: %s%',
-                'table-card-info': 'Table card: %s %s'
+                'table-card-info': 'Table card: %s %s',
+                // Nowe wiadomości dla funkcji Win
+                'winners-declared': 'Winners have been declared!',
+                'player-becomes-winner': '%s becomes WINNER #%s!',
+                'last-player-loses': 'Last player %s LOSES the game!',
+                'declare-winners-confirm': 'Declare Winner', // Old - keep for now, might remove later
+                'declare-winners-message': 'This will make all living players winners, except for the last one who will become the loser. Continue?', // Old
+                'declare-winners-yes': 'Yes, end the game', // Old
+                'declare-winners-no': 'No, continue playing', // Old
+                // New translations for single winner declaration
+                'declare-winner-btn': 'Declare winner [W]',
+                'confirm-winner-title': 'Confirm Winner',
+                'confirm-winner-message': 'Did player %s win?',
+                'select-player-prompt': 'Click on the player card to declare them a winner.'
             },
             pl: {
                 // Menu główne
@@ -140,6 +157,7 @@ class GameManager {
                 'keyboard-shortcuts': 'Skróty klawiaturowe',
                 'play-card': 'Wykonaj akcję',
                 'challenge-liar': 'Wyzwij kłamcę',
+                'declare-winners': 'Ogłoś zwycięzcę',
                 'reset': 'Reset gry',
                 'return-to-menu': 'Powrót do menu',
                 'during-challenge': 'Podczas wyzwania',
@@ -151,6 +169,7 @@ class GameManager {
                 'current-turn': 'Obecna tura:',
                 'play-card-btn': 'Zagraj/Strzel [Spacja]',
                 'challenge-liar-btn': 'Wyzwij kłamcę [C]',
+                'declare-winners-btn': 'Ogłoś zwycięzcę [W]',
                 'reset-game-btn': 'Reset gry [R]',
                 'return-to-menu-btn': 'Wróć do menu [ESC]',
                 'game-log': 'Log gry:',
@@ -224,7 +243,20 @@ class GameManager {
                 'survived': 'PRZEŻYŁ!',
                 'died': 'ZMARŁ!',
                 'survival-chance': 'Szansa na przeżycie: %s%',
-                'table-card-info': 'Karta stołowa: %s %s'
+                'table-card-info': 'Karta stołowa: %s %s',
+                // Nowe wiadomości dla funkcji Win
+                'winners-declared': 'Zwycięzcy zostali ogłoszeni!',
+                'player-becomes-winner': '%s zostaje WYGRANYM #%s!',
+                'last-player-loses': 'Ostatni gracz %s PRZEGRYWA grę!',
+                'declare-winners-confirm': 'Ogłoś zwycięzcę', // Old
+                'declare-winners-message': 'To spowoduje, że wszyscy żyjący gracze zostaną zwycięzcami, z wyjątkiem ostatniego, który stanie się przegranym. Kontynuować?', // Old
+                'declare-winners-yes': 'Tak, zakończ grę', // Old
+                'declare-winners-no': 'Nie, kontynuuj grę', // Old
+                // New translations for single winner declaration
+                'declare-winner-btn': 'Ogłoś zwycięzcę [W]',
+                'confirm-winner-title': 'Potwierdź Zwycięzcę',
+                'confirm-winner-message': 'Czy gracz %s wygrał?',
+                'select-player-prompt': 'Kliknij na kartę gracza, aby ogłosić go zwycięzcą.'
             }
         };
 
@@ -292,6 +324,7 @@ class GameManager {
         // Przyciski gry - zoptymalizowane, został tylko jeden główny przycisk
         document.getElementById('play-card').addEventListener('click', () => this.handleMainAction());
         document.getElementById('challenge-liar').addEventListener('click', () => this.challengeLiar());
+        document.getElementById('win').addEventListener('click', () => this.startWinnerSelection()); // Changed function call
         document.getElementById('reset-game').addEventListener('click', () => this.resetGame());
         document.getElementById('return-to-menu').addEventListener('click', () => this.showMainMenu());
 
@@ -318,6 +351,9 @@ class GameManager {
             // Standardowe obracanie karty
             $(this).toggleClass('flip');
         });
+
+        // Add listener for player card clicks (delegated from container)
+        document.getElementById('players-container').addEventListener('click', (e) => this.handlePlayerCardClickForWinner(e));
     }
 
     // Główna funkcja obsługująca akcje - zagranie karty lub strzał
@@ -367,6 +403,19 @@ class GameManager {
                     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
                         openModal.querySelector('#close-result').click();
                     }
+                } else if (openModal.querySelector('#confirm-winners')) {
+                    // To jest modal potwierdzenia ogłoszenia zwycięzców
+                    switch (e.key.toLowerCase()) {
+                        case 'y':
+                            openModal.querySelector('#confirm-winners').click();
+                            break;
+                        case 'n':
+                            openModal.querySelector('#cancel-winners').click();
+                            break;
+                        case 'escape':
+                            openModal.querySelector('#cancel-winners').click();
+                            break;
+                    }
                 }
                 return;
             }
@@ -379,11 +428,19 @@ class GameManager {
                     }
                     break;
                 case 'c': // Klawisz C - Wyzwij kłamcę
+                case 'C':
                     if (!document.getElementById('challenge-liar').disabled) {
                         this.challengeLiar();
                     }
                     break;
+                case 'w': // Klawisz W - Ogłoś zwycięzcę
+                case 'W':
+                    if (!document.getElementById('win').disabled) {
+                        this.startWinnerSelection(); // Changed function call
+                    }
+                    break;
                 case 'r': // Klawisz R - Reset gry
+                case 'R':
                     if (!document.getElementById('reset-game').disabled) {
                         this.resetGame();
                     }
@@ -394,6 +451,133 @@ class GameManager {
             }
         });
     }
+
+    // --- New Winner Declaration Logic ---
+
+    // Starts the process of selecting a single winner
+    startWinnerSelection() {
+        // Check if there are enough active players to declare a winner
+        const activePlayers = this.players.filter(player => player.isAlive && !player.isWinner);
+        if (activePlayers.length < 2) {
+            this.log(this.formatMessage('no-more-players')); // Or a more specific message
+            return;
+        }
+
+        this.isSelectingWinner = true;
+        this.playerToDeclareWinner = null; // Reset selection
+        this.log(this.formatMessage('select-player-prompt'));
+
+        // Add visual cue for selection mode (e.g., class to body or container)
+        document.getElementById('players-container').classList.add('selecting-winner');
+
+        // Disable other actions while selecting
+        document.getElementById('play-card').disabled = true;
+        document.getElementById('challenge-liar').disabled = true;
+        document.getElementById('win').disabled = true; // Disable itself during selection
+        document.getElementById('reset-game').disabled = true;
+
+        // Add temporary event listener for player card clicks
+        // We'll add this listener properly in setupEventListeners later
+    }
+
+    // Handles click on a player card during winner selection
+    handlePlayerCardClickForWinner(event) {
+        if (!this.isSelectingWinner) return; // Only act if in selection mode
+
+        const cardElement = event.target.closest('.player-card');
+        if (!cardElement) return; // Clicked outside a card
+
+        const playerId = parseInt(cardElement.dataset.playerId);
+        const selectedPlayer = this.players.find(p => p.id === playerId);
+
+        if (selectedPlayer && selectedPlayer.isAlive && !selectedPlayer.isWinner) {
+            this.playerToDeclareWinner = selectedPlayer;
+            this.showConfirmWinnerModal(selectedPlayer);
+        } else {
+            // Optional: Provide feedback if an invalid player is clicked (e.g., dead or already winner)
+            this.log("Cannot select this player."); // Simple log for now
+        }
+    }
+
+    // Shows the modal to confirm the selected winner
+    showConfirmWinnerModal(player) {
+        const modal = document.getElementById('confirmWinnerModal');
+        const messageElement = document.getElementById('confirmWinnerMessage');
+        const yesButton = document.getElementById('confirmWinnerYes');
+        const noButton = document.getElementById('confirmWinnerNo');
+
+        messageElement.textContent = this.formatMessage('confirm-winner-message', player.name);
+
+        // Remove previous listeners if any, before adding new ones
+        const newYesButton = yesButton.cloneNode(true);
+        yesButton.parentNode.replaceChild(newYesButton, yesButton);
+        newYesButton.addEventListener('click', () => this.confirmWinner(player));
+
+        const newNoButton = noButton.cloneNode(true);
+        noButton.parentNode.replaceChild(newNoButton, noButton);
+        newNoButton.addEventListener('click', () => this.cancelWinnerSelection());
+
+        modal.style.display = 'block';
+    }
+
+    // Confirms the selected player as a winner
+    confirmWinner(player) {
+        const modal = document.getElementById('confirmWinnerModal');
+        modal.style.display = 'none';
+
+        this.winnerCount++;
+        player.isWinner = true;
+        player.winnerRank = this.winnerCount;
+        this.log(this.formatMessage('player-becomes-winner', player.name, player.winnerRank));
+
+        // Reset selection state
+        this.isSelectingWinner = false;
+        this.playerToDeclareWinner = null;
+        document.getElementById('players-container').classList.remove('selecting-winner');
+
+        // Check if game ends (only one active player left)
+        const activePlayers = this.players.filter(p => p.isAlive && !p.isWinner);
+        if (activePlayers.length === 1) {
+            const loser = activePlayers[0];
+            this.log(this.formatMessage('last-player-loses', loser.name));
+            // Game ends, keep buttons disabled except reset/menu
+            document.getElementById('play-card').disabled = true;
+            document.getElementById('challenge-liar').disabled = true;
+            document.getElementById('win').disabled = true;
+            document.getElementById('reset-game').disabled = false; // Re-enable reset
+        } else {
+            // Game continues, re-enable buttons
+            document.getElementById('play-card').disabled = false;
+            // Challenge button state depends on last action, update it
+            this.updateChallengeButtonState();
+            document.getElementById('win').disabled = false; // Re-enable declare winner
+            document.getElementById('reset-game').disabled = false;
+        }
+
+        this.renderPlayers();
+        this.checkGameEnd(); // Check again after potential loser declaration
+    }
+
+    // Cancels the winner selection process
+    cancelWinnerSelection() {
+        const modal = document.getElementById('confirmWinnerModal');
+        modal.style.display = 'none';
+
+        this.isSelectingWinner = false;
+        this.playerToDeclareWinner = null;
+        document.getElementById('players-container').classList.remove('selecting-winner');
+
+        // Re-enable buttons
+        document.getElementById('play-card').disabled = false;
+        this.updateChallengeButtonState(); // Update challenge button based on context
+        document.getElementById('win').disabled = false;
+        document.getElementById('reset-game').disabled = false;
+
+        this.log("Winner declaration cancelled."); // Optional log message
+    }
+
+    // --- End of New Winner Declaration Logic ---
+
 
     // Wyświetla menu główne
     showMainMenu() {
@@ -1022,6 +1206,7 @@ class GameManager {
             // Dezaktywuj przyciski gry
             document.getElementById('play-card').disabled = true;
             document.getElementById('challenge-liar').disabled = true;
+            document.getElementById('win').disabled = true;
             
             // Dodane: Odśwież widok graczy na końcu gry
             this.renderPlayers();
@@ -1035,6 +1220,7 @@ class GameManager {
             // Dezaktywuj przyciski gry
             document.getElementById('play-card').disabled = true;
             document.getElementById('challenge-liar').disabled = true;
+            document.getElementById('win').disabled = true;
             
             // Dodane: Odśwież widok graczy na końcu gry
             this.renderPlayers();
@@ -1059,6 +1245,7 @@ class GameManager {
                 // Dezaktywuj przyciski gry
                 document.getElementById('play-card').disabled = true;
                 document.getElementById('challenge-liar').disabled = true;
+                document.getElementById('win').disabled = true;
                 
                 // Dodane: Odśwież widok graczy na końcu gry
                 this.renderPlayers();
@@ -1093,6 +1280,7 @@ class GameManager {
                 // Dezaktywuj przyciski gry
                 document.getElementById('play-card').disabled = true;
                 document.getElementById('challenge-liar').disabled = true;
+                document.getElementById('win').disabled = true;
 
                 return;
             }
@@ -1148,6 +1336,7 @@ class GameManager {
         // Zaktualizuj przyciski
         document.getElementById('play-card').disabled = false;
         document.getElementById('challenge-liar').disabled = true;
+        document.getElementById('win').disabled = false;
 
         // Renderuj graczy
         this.renderPlayers();

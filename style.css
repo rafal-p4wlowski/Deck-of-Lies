@@ -168,6 +168,15 @@ button#challenge-liar:hover {
     background-color: #a00000;
 }
 
+/* Styles for Win button */
+button#win {
+    background-color: #006400;
+}
+
+button#win:hover {
+    background-color: #008000;
+}
+
 .active {
     display: block;
 }
@@ -401,6 +410,18 @@ button#challenge-liar:hover {
     border: 1px solid #f44336;
     animation: dead-glow 2s infinite alternate;
     opacity: 0.9;
+}
+
+/* Styles for Winner Selection Mode */
+#players-container.selecting-winner .player-card:not(.dead):not(.winner):not(.loser) {
+    cursor: pointer;
+    border: 2px dashed #f0f0f0; /* Add a dashed border to indicate clickability */
+    opacity: 0.8; /* Slightly dim non-selectable cards */
+}
+
+#players-container.selecting-winner .player-card:not(.dead):not(.winner):not(.loser):hover {
+    border: 2px solid #ff4040; /* Highlight on hover */
+    opacity: 1.0;
 }
 
 @keyframes dead-glow {
