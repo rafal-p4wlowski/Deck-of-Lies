@@ -36,13 +36,6 @@ Deck of Lies is an interactive card game that combines elements of bluffing and 
 ### Game Screen
 ![Game Screen](images/readme/game-screen.png)
 
-## Technologies
-
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- jQuery
-
 ## Game Rules
 
 ### Game Objective

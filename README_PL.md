@@ -36,13 +36,6 @@ Deck of Lies to interaktywna gra karciana łącząca elementy blefowania i rosyj
 ### Ekran rozgrywki
 ![Ekran Gry](images/readme/game-screen.png)
 
-## Technologie
-
-- HTML5
-- CSS3
-- JavaScript (ES6+)
-- jQuery
-
 ## Zasady gry
 
 ### Cel gry
