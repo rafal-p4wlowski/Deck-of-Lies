@@ -512,6 +512,27 @@ button#win:hover {
     z-index: 2;
 }
 
+/* New style for bottom-right rank */
+.cards--poker .card .rank-bottom-right {
+    display: block;
+    position: absolute;
+    padding: 0.25em;
+    font-size: 0.5em; /* Same size as top-left */
+    font-weight: bold;
+    bottom: 5px;      /* Position from bottom */
+    right: 5px;       /* Position from right */
+    transform: rotate(180deg); /* Rotate text */
+    z-index: 2;
+    color: inherit; /* Inherit color from .face based on suit */
+}
+
+/* Add suit symbols to bottom-right rank */
+.cards--poker .card.diamonds .rank-bottom-right:after { content: " \2666"; }
+.cards--poker .card.hearts .rank-bottom-right:after { content: " \2665"; }
+.cards--poker .card.spades .rank-bottom-right:after { content: " \2660"; }
+.cards--poker .card.clubs .rank-bottom-right:after { content: " \2663"; }
+
+
 /* Wspólne style dla wszystkich symboli na kartach */
 .cards--poker .card .suit {
     position: absolute;

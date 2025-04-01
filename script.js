@@ -798,6 +798,7 @@ class GameManager {
                     <div class="face">
                         <div class="suit"></div>
                         <div class="rank">${rank}</div>
+                        <div class="rank-bottom-right">${rank}</div>
                     </div>
                     <div class="back"></div>
                 </div>
