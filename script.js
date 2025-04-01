@@ -28,18 +28,13 @@ class GameManager {
                 'select-language': 'Select language:',
                 'table-cards': 'Table Cards',
                 'select-table-cards': 'Select which cards can be drawn as table cards:',
-                'starting-cards-count': 'Starting Cards Count',
-                'cards-per-player': 'Cards for each player:',
                 'initial-trigger-pulls': 'Initial Trigger Pulls',
                 'initial-shots': 'Initial number of trigger pulls:',
 
                 // Skróty klawiaturowe
                 'keyboard-shortcuts': 'Keyboard Shortcuts',
-                'play-card-1': 'Play card x1',
-                'play-card-2': 'Play card x2',
-                'play-card-3': 'Play card x3',
+                'play-card': 'Perform action',
                 'challenge-liar': 'Challenge liar',
-                'shoot': 'Shoot!',
                 'reset': 'Reset game',
                 'return-to-menu': 'Return to menu',
                 'during-challenge': 'During challenge',
@@ -49,11 +44,8 @@ class GameManager {
                 // Ekran gry
                 'table-card': 'Table Card:',
                 'current-turn': 'Current turn:',
-                'play-card-1-btn': 'Play card x1 [1]',
-                'play-card-2-btn': 'Play card x2 [2]',
-                'play-card-3-btn': 'Play card x3 [3]',
+                'play-card-btn': 'Play/Shoot [Space]',
                 'challenge-liar-btn': 'Challenge liar [C]',
-                'shoot-btn': 'Shoot! [S]',
                 'reset-game-btn': 'Reset game [R]',
                 'return-to-menu-btn': 'Return to menu [ESC]',
                 'game-log': 'Game Log:',
@@ -81,8 +73,7 @@ class GameManager {
                 'table-card-desc': 'Table Card: A randomly selected face card (Q, K, or A) that determines which cards players must (or pretend to) play in a given round.',
                 'joker-desc': 'Joker: A wild card that can substitute for any required table card (Q, K, or A).',
                 'turn-sequence': 'Turn Sequence',
-                'starting-cards': 'Each player receives 5 cards at the beginning of the game.',
-                'play-cards': 'In your turn, you can play 1 to 3 cards, placing them face down in the center of the table.',
+                'play-cards': 'In your turn, you can play cards, placing them face down in the center of the table.',
                 'next-player-choice': 'The next player can either believe you and play their cards or challenge your truthfulness by saying "Liar!".',
                 'liar-challenge': 'Liar Challenge',
                 'challenge-procedure': 'If someone challenges your declaration:',
@@ -91,32 +82,26 @@ class GameManager {
                 'truthful-outcome': 'If the player\'s declaration turns out to be true – the challenger must pull the trigger of the revolver.',
                 'lying-outcome': 'If bluffing is discovered – the player who lied must pull the trigger.',
                 'russian-roulette': 'Russian Roulette',
-                'revolver-desc': 'Each player\'s revolver is loaded with one bullet, randomly positioned between shots 1-6. The indicator (x/6) of other players shows the shots fired. Death occurs after (6/6).',
+                'revolver-desc': 'Each player\'s revolver is loaded with one bullet, randomly positioned between shots 1-6. The indicator (x/6) shows shots fired.',
                 'loser-shoots': 'The player who lost the challenge must pull the trigger of the revolver.',
                 'shoot-outcome-death': 'If the revolver fires, the player loses and is out of the game.',
                 'shoot-outcome-survive': 'If the revolver doesn\'t fire, the game continues.',
                 'game-flow': 'Game Flow',
-                'after-shot': 'After each shot from the revolver (regardless of the outcome), new cards are dealt and a new table card is drawn.',
-                'game-end': 'The game ends when only one living player remains or when a player gets rid of all their cards.',
+                'after-shot': 'After each shot from the revolver (regardless of the outcome), a new table card is drawn.',
+                'game-end': 'The game ends when only one living player remains.',
 
                 // Wiadomości logów gry
                 'game-started': 'Game started!',
                 'players-seated': 'Players were randomly seated at the table.',
                 'player-turn': 'Player turn:',
-                'player-dead': '%s is already dead and cannot play a card!',
-                'player-won': '%s already won and cannot play a card!',
-                'no-cards': '%s has no cards left!',
-                'not-enough-cards': '%s doesn\'t have enough cards! (Has: %s, Needs: %s)',
-                'played-cards': '%s played %s %s.',
-                'card-singular': 'card',
-                'cards-few': 'cards',
-                'cards-many': 'cards',
-                'player-got-rid': '%s got rid of all cards and becomes WINNER #%s!',
+                'player-dead': '%s is already dead and cannot play!',
+                'player-won': '%s already won and cannot play!',
+                'played-card': '%s played a card.',
+                'player-got-rid': '%s becomes WINNER #%s!',
                 'game-over-last': 'GAME OVER! %s is the last player and LOSES!',
                 'player-dead-challenge': '%s is dead and cannot challenge a liar!',
                 'player-won-challenge': '%s already won and cannot challenge a liar!',
                 'cannot-challenge': 'Cannot challenge - no one has played a card yet!',
-                'player-won-challenge': '%s already won and cannot be challenged!',
                 'player-dead-challenged': '%s is already dead and cannot be challenged!',
                 'already-checked': '%s has already been checked this round, cannot challenge again!',
                 'challenged': '%s challenged %s: "LIAR!"',
@@ -128,7 +113,6 @@ class GameManager {
                 'player-dead-shoot': '%s is already dead and cannot shoot!',
                 'player-survived': '%s survived the shot! (%s/6)',
                 'player-died': '%s did NOT survive the shot! (%s/6)',
-                'cards-redistributed': 'Cards have been redistributed to living players.',
                 'no-more-players': 'GAME OVER! There are no more active players!',
                 'game-reset': 'Game reset!',
                 'shot-result': 'Shot Result',
@@ -149,18 +133,13 @@ class GameManager {
                 'select-language': 'Wybierz język:',
                 'table-cards': 'Karty stołowe',
                 'select-table-cards': 'Wybierz, które karty mogą być losowane jako karty stołowe:',
-                'starting-cards-count': 'Liczba kart na start',
-                'cards-per-player': 'Liczba kart dla każdego gracza:',
                 'initial-trigger-pulls': 'Wstępne pociągnięcia spustu',
                 'initial-shots': 'Początkowa liczba pociągnięć spustu:',
 
                 // Skróty klawiaturowe
                 'keyboard-shortcuts': 'Skróty klawiaturowe',
-                'play-card-1': 'Zagraj kartę x1',
-                'play-card-2': 'Zagraj kartę x2',
-                'play-card-3': 'Zagraj kartę x3',
+                'play-card': 'Wykonaj akcję',
                 'challenge-liar': 'Wyzwij kłamcę',
-                'shoot': 'Strzel!',
                 'reset': 'Reset gry',
                 'return-to-menu': 'Powrót do menu',
                 'during-challenge': 'Podczas wyzwania',
@@ -170,11 +149,8 @@ class GameManager {
                 // Ekran gry
                 'table-card': 'Karta na stole:',
                 'current-turn': 'Obecna tura:',
-                'play-card-1-btn': 'Zagraj kartę x1 [1]',
-                'play-card-2-btn': 'Zagraj kartę x2 [2]',
-                'play-card-3-btn': 'Zagraj kartę x3 [3]',
+                'play-card-btn': 'Zagraj/Strzel [Spacja]',
                 'challenge-liar-btn': 'Wyzwij kłamcę [C]',
-                'shoot-btn': 'Strzel! [S]',
                 'reset-game-btn': 'Reset gry [R]',
                 'return-to-menu-btn': 'Wróć do menu [ESC]',
                 'game-log': 'Log gry:',
@@ -189,7 +165,7 @@ class GameManager {
                 'objective-desc-1': 'Gracze starają się przekonać innych, że ich deklaracje dotyczące posiadanych kart są prawdziwe – nawet jeśli blefują',
                 'objective-desc-2': 'Celem jest wyeliminowanie przeciwników lub pozbycie się wszystkich kart.',
                 'general-rules': 'Zasady Ogólne',
-                'win-condition': 'Warunek zwycięstwa: Bądź ostatnim, który pozostał przy życiu lub pozbądź się wszystkich kart!',
+                'win-condition': 'Warunek zwycięstwa: Bądź ostatnim, który pozostał przy życiu!',
                 'turn-order': 'Gracz po lewej to poprzedni gracz, gracz po prawej to następny gracz.',
                 'round-end': 'Każda runda kończy się wyzwaniem poprzedniego gracza i oddaniem strzału w oparciu o ujawnione karty.',
                 'hidden-cards': 'Karty nie są ujawniane, chyba że zostaną zakwestionowane, więc blefowanie jest możliwe.',
@@ -202,8 +178,7 @@ class GameManager {
                 'table-card-desc': 'Karta stołowa: Losowo wybrana figura (Q, K lub A) określająca, jakie karty gracze muszą (lub udają, że) zagrywają w danej rundzie.',
                 'joker-desc': 'Joker: Uniwersalna karta, która może zastępować dowolną wymaganą kartę stołową (Q, K lub A).',
                 'turn-sequence': 'Przebieg tury',
-                'starting-cards': 'Każdy gracz otrzymuje 5 kart na początku gry.',
-                'play-cards': 'Gracz w swojej turze może zagrać od 1 do 3 kart, kładąc je zakryte na środku stołu.',
+                'play-cards': 'Gracz w swojej turze może zagrać karty, kładąc je zakryte na środku stołu.',
                 'next-player-choice': 'Kolejny gracz może uwierzyć i dołożyć karty lub podważyć prawdomówność, mówiąc "Kłamiesz!".',
                 'liar-challenge': 'Wyzwanie kłamcy',
                 'challenge-procedure': 'Jeśli ktoś podważy deklarację:',
@@ -212,32 +187,26 @@ class GameManager {
                 'truthful-outcome': 'Jeśli deklaracja gracza okazuje się prawdziwa – osoba podważająca musi pociągnąć za spust rewolweru.',
                 'lying-outcome': 'Jeśli odkryto blef – gracz, który kłamał, jest zmuszony pociągnąć za spust.',
                 'russian-roulette': 'Rosyjska Ruletka',
-                'revolver-desc': 'Rewolwer każdego gracza jest naładowany jedną kulą, losowo umiejscowioną pomiędzy strzałami 1-6. Wskaźnik (x/6) innych graczy wskazuje oddane strzały. Śmierć następuje po (6/6).',
+                'revolver-desc': 'Rewolwer każdego gracza jest naładowany jedną kulą, losowo umiejscowioną pomiędzy strzałami 1-6. Wskaźnik (x/6) wskazuje oddane strzały.',
                 'loser-shoots': 'Gracz, który przegrał wyzwanie, musi pociągnąć za spust rewolweru.',
                 'shoot-outcome-death': 'Jeśli rewolwer wystrzeli, gracz przegrywa i odpada z gry.',
                 'shoot-outcome-survive': 'Jeśli rewolwer nie wystrzeli, gra toczy się dalej.',
                 'game-flow': 'Przebieg gry',
-                'after-shot': 'Po każdym strzale z rewolweru (niezależnie od wyniku) rozdawane są nowe karty i losowana jest nowa karta stołowa.',
-                'game-end': 'Gra kończy się, gdy zostanie tylko jeden żywy gracz lub gdy gracz pozbędzie się wszystkich kart.',
+                'after-shot': 'Po każdym strzale z rewolweru (niezależnie od wyniku) losowana jest nowa karta stołowa.',
+                'game-end': 'Gra kończy się, gdy zostanie tylko jeden żywy gracz.',
 
                 // Wiadomości logów gry
                 'game-started': 'Gra rozpoczęta!',
                 'players-seated': 'Gracze zostali losowo rozsadzeni przy stole.',
                 'player-turn': 'Kolej gracza:',
-                'player-dead': '%s nie żyje i nie może zagrać karty!',
-                'player-won': '%s już wygrał i nie może zagrać karty!',
-                'no-cards': '%s nie ma już kart!',
-                'not-enough-cards': '%s nie ma wystarczającej liczby kart! (Ma: %s, Potrzebuje: %s)',
-                'played-cards': '%s zagrał %s %s.',
-                'card-singular': 'kartę',
-                'cards-few': 'karty',
-                'cards-many': 'kart',
-                'player-got-rid': '%s pozbył się wszystkich kart i zostaje WYGRANYM #%s!',
+                'player-dead': '%s nie żyje i nie może zagrać!',
+                'player-won': '%s już wygrał i nie może zagrać!',
+                'played-card': '%s zagrał kartę.',
+                'player-got-rid': '%s zostaje WYGRANYM #%s!',
                 'game-over-last': 'KONIEC GRY! %s jest ostatnim graczem i PRZEGRYWA!',
                 'player-dead-challenge': '%s nie żyje i nie może wyzwać kłamcy!',
                 'player-won-challenge': '%s już wygrał i nie może wyzwać kłamcy!',
                 'cannot-challenge': 'Nie można wyzwać - nikt jeszcze nie zagrał karty!',
-                'player-won-challenge': '%s już wygrał, nie można go wyzwać!',
                 'player-dead-challenged': '%s jest już martwy, nie można go wyzwać!',
                 'already-checked': '%s został już sprawdzony w tej rundzie, nie można go ponownie wyzwać!',
                 'challenged': '%s wyzwał %s: "KŁAMCA!"',
@@ -249,7 +218,6 @@ class GameManager {
                 'player-dead-shoot': '%s jest już martwy i nie może strzelać!',
                 'player-survived': '%s przeżył strzał! (%s/6)',
                 'player-died': '%s NIE przeżył strzału! (%s/6)',
-                'cards-redistributed': 'Karty zostały rozdane na nowo dla żyjących graczy.',
                 'no-more-players': 'KONIEC GRY! Nie ma więcej aktywnych graczy!',
                 'game-reset': 'Gra zresetowana!',
                 'shot-result': 'Wynik strzału',
@@ -262,7 +230,6 @@ class GameManager {
 
         // Domyślne ustawienia gry
         this.settings = {
-            startingCards: 5,       // Liczba kart na start
             startingShots: 0        // Początkowa liczba pociągnięć spustu
         };
 
@@ -314,9 +281,6 @@ class GameManager {
         document.getElementById('language-select').addEventListener('change', (e) => {
             this.updateLanguage(e.target.value);
         });
-        document.getElementById('starting-cards').addEventListener('change', (e) => {
-            this.settings.startingCards = parseInt(e.target.value);
-        });
         document.getElementById('starting-shots').addEventListener('change', (e) => {
             this.settings.startingShots = parseInt(e.target.value);
         });
@@ -325,12 +289,9 @@ class GameManager {
         document.getElementById('add-player').addEventListener('click', () => this.addPlayerField());
         document.getElementById('start-game').addEventListener('click', () => this.startGame());
 
-        // Przyciski gry
-        document.getElementById('play-card').addEventListener('click', () => this.playCard(1));
-        document.getElementById('play-card-2').addEventListener('click', () => this.playCard(2));
-        document.getElementById('play-card-3').addEventListener('click', () => this.playCard(3));
+        // Przyciski gry - zoptymalizowane, został tylko jeden główny przycisk
+        document.getElementById('play-card').addEventListener('click', () => this.handleMainAction());
         document.getElementById('challenge-liar').addEventListener('click', () => this.challengeLiar());
-        document.getElementById('take-shot').addEventListener('click', () => this.takeShot());
         document.getElementById('reset-game').addEventListener('click', () => this.resetGame());
         document.getElementById('return-to-menu').addEventListener('click', () => this.showMainMenu());
 
@@ -357,6 +318,18 @@ class GameManager {
             // Standardowe obracanie karty
             $(this).toggleClass('flip');
         });
+    }
+
+    // Główna funkcja obsługująca akcje - zagranie karty lub strzał
+    handleMainAction() {
+        // Jeśli przycisk strzału jest widoczny, wykonaj strzał
+        if (!document.getElementById('play-card').disabled) {
+            if (this.playerToShoot) {
+                this.takeShot();
+            } else {
+                this.playCard();
+            }
+        }
     }
 
     // Dodana obsługa skrótów klawiaturowych
@@ -400,29 +373,14 @@ class GameManager {
 
             // Obsługa standardowych skrótów gry
             switch (e.key) {
-                case '1': // Klawisz 1 - Zagraj 1 kartę
+                case ' ': // Spacja - główny przycisk akcji (zagranie karty lub strzał)
                     if (!document.getElementById('play-card').disabled) {
-                        this.playCard(1);
-                    }
-                    break;
-                case '2': // Klawisz 2 - Zagraj 2 karty
-                    if (!document.getElementById('play-card-2').disabled) {
-                        this.playCard(2);
-                    }
-                    break;
-                case '3': // Klawisz 3 - Zagraj 3 karty
-                    if (!document.getElementById('play-card-3').disabled) {
-                        this.playCard(3);
+                        this.handleMainAction();
                     }
                     break;
                 case 'c': // Klawisz C - Wyzwij kłamcę
                     if (!document.getElementById('challenge-liar').disabled) {
                         this.challengeLiar();
-                    }
-                    break;
-                case 's': // Klawisz S - Strzel!
-                    if (!document.getElementById('take-shot').classList.contains('hidden')) {
-                        this.takeShot();
                     }
                     break;
                 case 'r': // Klawisz R - Reset gry
@@ -491,7 +449,6 @@ class GameManager {
     // Aktualizacja interfejsu ustawień
     updateSettingsUI() {
         // Ustaw wartości w polach formularza
-        document.getElementById('starting-cards').value = this.settings.startingCards;
         document.getElementById('starting-shots').value = this.settings.startingShots;
         document.getElementById('language-select').value = this.currentLanguage;
 
@@ -529,8 +486,7 @@ class GameManager {
 
     // Zapisz ustawienia
     saveSettings() {
-        // Zapisz liczbę kart i pociągnięć
-        this.settings.startingCards = parseInt(document.getElementById('starting-cards').value) || 5;
+        // Zapisz liczbę pociągnięć
         this.settings.startingShots = parseInt(document.getElementById('starting-shots').value) || 0;
 
         // Zapisz język
@@ -685,12 +641,11 @@ class GameManager {
             players.push({
                 id: index + 1,
                 name: name,
-                cards: this.settings.startingCards, // Użyj ustawionej liczby kart
                 shotsPulled: this.settings.startingShots, // Użyj ustawionej liczby pociągnięć spustu
                 isAlive: true,
                 isWinner: false,
                 winnerRank: 0,
-                wasCheckedAsLiar: false // Nowa właściwość
+                wasCheckedAsLiar: false
             });
         });
 
@@ -723,9 +678,6 @@ class GameManager {
         // Renderuj graczy
         this.renderPlayers();
 
-        // Aktywuj grę
-        document.getElementById('take-shot').classList.add('hidden');
-
         // Wyłącz przycisk wyzwania kłamcy na początku gry (domyślnie wyłączony)
         document.getElementById('challenge-liar').disabled = true;
 
@@ -736,60 +688,58 @@ class GameManager {
     }
 
     // Renderowanie graczy
-renderPlayers() {
-    const playersContainer = document.getElementById('players-container');
-    playersContainer.innerHTML = '';
+    renderPlayers() {
+        const playersContainer = document.getElementById('players-container');
+        playersContainer.innerHTML = '';
 
-    // Sprawdź, czy gra się zakończyła
-    const gameEnded = this.players.filter(player => player.isAlive && !player.isWinner).length <= 1;
-    const allActivePlayersWon = this.players.filter(player => player.isAlive).every(player => player.isWinner);
-    const gameOver = gameEnded || allActivePlayersWon;
+        // Sprawdź, czy gra się zakończyła
+        const gameEnded = this.players.filter(player => player.isAlive && !player.isWinner).length <= 1;
+        const allActivePlayersWon = this.players.filter(player => player.isAlive).every(player => player.isWinner);
+        const gameOver = gameEnded || allActivePlayersWon;
 
-    this.players.forEach((player, index) => {
-        // Określ klasę w zależności od statusu gracza
-        let statusClass = '';
-        if (!player.isAlive) {
-            statusClass = 'dead';
-        } else if (player.isWinner) {
-            statusClass = 'winner';
-        } else if (gameOver) {
-            // Jeśli gra się zakończyła, a gracz jest żywy ale nie wygrał - oznacza to, że przegrał
-            statusClass = 'loser';
-        } else if (index === this.currentPlayerIndex) {
-            statusClass = 'active';
-        }
+        this.players.forEach((player, index) => {
+            // Określ klasę w zależności od statusu gracza
+            let statusClass = '';
+            if (!player.isAlive) {
+                statusClass = 'dead';
+            } else if (player.isWinner) {
+                statusClass = 'winner';
+            } else if (gameOver) {
+                // Jeśli gra się zakończyła, a gracz jest żywy ale nie wygrał - oznacza to, że przegrał
+                statusClass = 'loser';
+            } else if (index === this.currentPlayerIndex) {
+                statusClass = 'active';
+            }
 
-        // Określ status do wyświetlenia
-        let status = '';
-        if (!player.isAlive) {
-            status = this.currentLanguage === 'en' ? 'Dead' : 'Martwy';
-        } else if (player.isWinner) {
-            status = this.currentLanguage === 'en' ? `Winner #${player.winnerRank}` : `Wygrany #${player.winnerRank}`;
-        } else if (gameOver) {
-            // Jeśli gra się zakończyła, a gracz jest żywy ale nie wygrał - oznacz jako przegranego
-            status = this.currentLanguage === 'en' ? 'Loser' : 'Przegrany';
-        } else {
-            status = this.currentLanguage === 'en' ? 'Alive' : 'Żyje';
-        }
+            // Określ status do wyświetlenia
+            let status = '';
+            if (!player.isAlive) {
+                status = this.currentLanguage === 'en' ? 'Dead' : 'Martwy';
+            } else if (player.isWinner) {
+                status = this.currentLanguage === 'en' ? `Winner #${player.winnerRank}` : `Wygrany #${player.winnerRank}`;
+            } else if (gameOver) {
+                // Jeśli gra się zakończyła, a gracz jest żywy ale nie wygrał - oznacz jako przegranego
+                status = this.currentLanguage === 'en' ? 'Loser' : 'Przegrany';
+            } else {
+                status = this.currentLanguage === 'en' ? 'Alive' : 'Żyje';
+            }
 
-        const playerCard = document.createElement('div');
-        playerCard.className = `player-card ${statusClass}`;
-        playerCard.dataset.playerId = player.id;
+            const playerCard = document.createElement('div');
+            playerCard.className = `player-card ${statusClass}`;
+            playerCard.dataset.playerId = player.id;
 
-        const cardsText = this.currentLanguage === 'en' ? 'Cards' : 'Karty';
-        const shotsText = this.currentLanguage === 'en' ? 'Trigger pulls' : 'Pociągnięcia spustu';
-        const statusText = this.currentLanguage === 'en' ? 'Status' : 'Status';
-        
-        playerCard.innerHTML = `
-            <h3>${player.name}</h3>
-            <p>${statusText}: ${status}</p>
-            <p>${cardsText}: ${player.cards}</p>
-            <p>${shotsText}: ${player.shotsPulled}/6</p>
-        `;
+            const statusText = this.currentLanguage === 'en' ? 'Status' : 'Status';
+            const shotsText = this.currentLanguage === 'en' ? 'Trigger pulls' : 'Pociągnięcia spustu';
+            
+            playerCard.innerHTML = `
+                <h3>${player.name}</h3>
+                <p>${statusText}: ${status}</p>
+                <p>${shotsText}: ${player.shotsPulled}/6</p>
+            `;
 
-        playersContainer.appendChild(playerCard);
-    });
-}
+            playersContainer.appendChild(playerCard);
+        });
+    }
 
     // Sprawdzenie, czy przycisk "Wyzwij kłamcę" powinien być aktywny
     updateChallengeButtonState() {
@@ -812,8 +762,8 @@ renderPlayers() {
         challengeButton.disabled = !shouldEnable;
     }
 
-    // Zagranie karty (symulacja) - teraz z parametrem cardCount (1, 2 lub 3)
-    playCard(cardCount) {
+    // Zagranie karty (uproszczone - bez ilości)
+    playCard() {
         const currentPlayer = this.players[this.currentPlayerIndex];
 
         if (!currentPlayer.isAlive) {
@@ -828,51 +778,13 @@ renderPlayers() {
             return;
         }
 
-        if (currentPlayer.cards <= 0) {
-            this.log(this.formatMessage('no-cards', currentPlayer.name));
-            return;
-        }
-
-        // Sprawdź czy gracz ma wystarczającą liczbę kart
-        if (currentPlayer.cards < cardCount) {
-            this.log(this.formatMessage('not-enough-cards', currentPlayer.name, currentPlayer.cards, cardCount));
-            return;
-        }
-
-        // Zapisz, że gracz zagrał kartę (nie musimy znać jaka to karta)
+        // Zapisz, że gracz zagrał kartę
         this.lastAction = {
             action: 'play',
-            player: currentPlayer,
-            cardCount: cardCount
+            player: currentPlayer
         };
 
-        // Zmniejsz liczbę kart gracza
-        currentPlayer.cards -= cardCount;
-
-        // Wybierz odpowiednią formę słowa "karta" w zależności od języka
-        let cardText = '';
-        if (this.currentLanguage === 'en') {
-            cardText = cardCount === 1 ? 'card' : 'cards';
-        } else {
-            cardText = this.getCardText(cardCount);
-        }
-
-        this.log(this.formatMessage('played-cards', currentPlayer.name, cardCount, cardText));
-
-        // Sprawdź czy gracz pozbył się wszystkich kart
-        if (currentPlayer.cards === 0) {
-            // Gracz wygrał!
-            this.winnerCount++;
-            currentPlayer.isWinner = true;
-            currentPlayer.winnerRank = this.winnerCount;
-
-            this.log(this.formatMessage('player-got-rid', currentPlayer.name, currentPlayer.winnerRank));
-
-            // Sprawdź czy został tylko jeden gracz, który nie wygrał i nie jest martwy
-            if (this.checkGameEnd()) {
-                return;
-            }
-        }
+        this.log(this.formatMessage('played-card', currentPlayer.name));
 
         // Zaktualizuj stan przycisku wyzwania kłamcy
         this.updateChallengeButtonState();
@@ -880,13 +792,6 @@ renderPlayers() {
         // Przejdź do następnego gracza
         this.nextTurn();
         this.renderPlayers();
-    }
-
-    // Pomocnicza metoda do wyświetlania odpowiedniej formy słowa "karta" w języku polskim
-    getCardText(count) {
-        if (count === 1) return this.formatMessage('card-singular');
-        else if (count >= 2 && count <= 4) return this.formatMessage('cards-few');
-        else return this.formatMessage('cards-many');
     }
 
     // Wyzwanie kłamcy
@@ -968,11 +873,8 @@ renderPlayers() {
             this.currentPlayerIndex = this.players.indexOf(accusedPlayer);
             this.renderPlayers();
 
-            // Pokaż przycisk strzału
-            document.getElementById('take-shot').classList.remove('hidden');
-            document.getElementById('play-card').disabled = true;
-            document.getElementById('play-card-2').disabled = true;
-            document.getElementById('play-card-3').disabled = true;
+            // Zaktualizuj przyciski
+            document.getElementById('play-card').disabled = false;
             document.getElementById('challenge-liar').disabled = true;
 
             // Zaktualizuj stan przycisku wyzwania kłamcy po oznaczeniu jako sprawdzonego
@@ -986,11 +888,8 @@ renderPlayers() {
             // Osoba wyzywająca musi strzelać (już jest aktualna)
             this.playerToShoot = currentPlayer;
 
-            // Pokaż przycisk strzału
-            document.getElementById('take-shot').classList.remove('hidden');
-            document.getElementById('play-card').disabled = true;
-            document.getElementById('play-card-2').disabled = true;
-            document.getElementById('play-card-3').disabled = true;
+            // Zaktualizuj przyciski
+            document.getElementById('play-card').disabled = false;
             document.getElementById('challenge-liar').disabled = true;
         });
     }
@@ -1003,17 +902,12 @@ renderPlayers() {
         if (!currentPlayer.isAlive) {
             this.log(this.formatMessage('player-dead-shoot', currentPlayer.name));
 
-            // Ukryj przycisk strzału
-            document.getElementById('take-shot').classList.add('hidden');
-            document.getElementById('play-card').disabled = false;
-            document.getElementById('play-card-2').disabled = false;
-            document.getElementById('play-card-3').disabled = false;
-
-            // Zaktualizuj stan przycisku wyzwania kłamcy
-            this.updateChallengeButtonState();
-
             // Resetuj wskaźnik gracza do strzelania
             this.playerToShoot = null;
+
+            // Zaktualizuj przyciski
+            document.getElementById('play-card').disabled = false;
+            document.getElementById('challenge-liar').disabled = true;
 
             // Przejdź do następnego gracza
             this.nextTurn();
@@ -1092,25 +986,12 @@ renderPlayers() {
             // Wyświetl nową kartę stołową
             this.displayTableCard();
 
-            // Rozdaj na nowo karty dla żyjących graczy
-            this.players.forEach(player => {
-                if (player.isAlive && !player.isWinner) {
-                    player.cards = this.settings.startingCards;
-                }
-            });
-            this.log(this.formatMessage('cards-redistributed'));
-
-            // Ukryj przycisk strzału
-            document.getElementById('take-shot').classList.add('hidden');
-            document.getElementById('play-card').disabled = false;
-            document.getElementById('play-card-2').disabled = false;
-            document.getElementById('play-card-3').disabled = false;
-
-            // Zaktualizuj stan przycisku wyzwania kłamcy - na początek rundy jest wyłączony
-            document.getElementById('challenge-liar').disabled = true;
-
             // Resetuj wskaźnik gracza do strzelania
             this.playerToShoot = null;
+
+            // Zaktualizuj przyciski
+            document.getElementById('play-card').disabled = false;
+            document.getElementById('challenge-liar').disabled = true;
 
             // Aktualizuj graczy
             this.renderPlayers();
@@ -1126,77 +1007,68 @@ renderPlayers() {
     }
 
     // Sprawdzenie czy gra się zakończyła
-checkGameEnd() {
-    // Gracze, którzy są jeszcze żywi i nie wygrali
-    const activePlayers = this.players.filter(player => player.isAlive && !player.isWinner);
-    
-    // Wszyscy żywi gracze
-    const alivePlayers = this.players.filter(player => player.isAlive);
+    checkGameEnd() {
+        // Gracze, którzy są jeszcze żywi i nie wygrali
+        const activePlayers = this.players.filter(player => player.isAlive && !player.isWinner);
+        
+        // Wszyscy żywi gracze
+        const alivePlayers = this.players.filter(player => player.isAlive);
 
-    // Jeśli pozostał tylko jeden aktywny gracz
-    if (activePlayers.length === 1) {
-        const lastPlayer = activePlayers[0];
-        this.log(this.formatMessage('game-over-last', lastPlayer.name));
-        
-        // Dezaktywuj przyciski gry
-        document.getElementById('play-card').disabled = true;
-        document.getElementById('play-card-2').disabled = true;
-        document.getElementById('play-card-3').disabled = true;
-        document.getElementById('challenge-liar').disabled = true;
-        document.getElementById('take-shot').classList.add('hidden');
-        
-        // Dodane: Odśwież widok graczy na końcu gry
-        this.renderPlayers();
-        
-        return true;
-    } 
-    // Jeśli wszyscy gracze wygrali lub są martwi
-    else if (activePlayers.length === 0) {
-        this.log(this.formatMessage('no-more-players'));
-        
-        // Dezaktywuj przyciski gry
-        document.getElementById('play-card').disabled = true;
-        document.getElementById('play-card-2').disabled = true;
-        document.getElementById('play-card-3').disabled = true;
-        document.getElementById('challenge-liar').disabled = true;
-        document.getElementById('take-shot').classList.add('hidden');
-        
-        // Dodane: Odśwież widok graczy na końcu gry
-        this.renderPlayers();
-        
-        return true;
-    }
-    
-    // Jeśli został tylko jeden żywy gracz
-    if (alivePlayers.length === 1) {
-        const lastAlivePlayer = alivePlayers[0];
-        
-        // Jeśli ten gracz nie jest jeszcze zwycięzcą, uczyń go zwycięzcą
-        if (!lastAlivePlayer.isWinner) {
-            this.winnerCount++;
-            lastAlivePlayer.isWinner = true;
-            lastAlivePlayer.winnerRank = this.winnerCount;
-            this.log(this.formatMessage('player-got-rid', lastAlivePlayer.name, lastAlivePlayer.winnerRank));
-            
-            // Zakończ grę
-            this.log(this.formatMessage('game-over-last', ""));
+        // Jeśli pozostał tylko jeden aktywny gracz
+        if (activePlayers.length === 1) {
+            const lastPlayer = activePlayers[0];
+            this.log(this.formatMessage('game-over-last', lastPlayer.name));
             
             // Dezaktywuj przyciski gry
             document.getElementById('play-card').disabled = true;
-            document.getElementById('play-card-2').disabled = true;
-            document.getElementById('play-card-3').disabled = true;
             document.getElementById('challenge-liar').disabled = true;
-            document.getElementById('take-shot').classList.add('hidden');
+            
+            // Dodane: Odśwież widok graczy na końcu gry
+            this.renderPlayers();
+            
+            return true;
+        } 
+        // Jeśli wszyscy gracze wygrali lub są martwi
+        else if (activePlayers.length === 0) {
+            this.log(this.formatMessage('no-more-players'));
+            
+            // Dezaktywuj przyciski gry
+            document.getElementById('play-card').disabled = true;
+            document.getElementById('challenge-liar').disabled = true;
             
             // Dodane: Odśwież widok graczy na końcu gry
             this.renderPlayers();
             
             return true;
         }
+        
+        // Jeśli został tylko jeden żywy gracz
+        if (alivePlayers.length === 1) {
+            const lastAlivePlayer = alivePlayers[0];
+            
+            // Jeśli ten gracz nie jest jeszcze zwycięzcą, uczyń go zwycięzcą
+            if (!lastAlivePlayer.isWinner) {
+                this.winnerCount++;
+                lastAlivePlayer.isWinner = true;
+                lastAlivePlayer.winnerRank = this.winnerCount;
+                this.log(this.formatMessage('player-got-rid', lastAlivePlayer.name, lastAlivePlayer.winnerRank));
+                
+                // Zakończ grę
+                this.log(this.formatMessage('game-over-last', ""));
+                
+                // Dezaktywuj przyciski gry
+                document.getElementById('play-card').disabled = true;
+                document.getElementById('challenge-liar').disabled = true;
+                
+                // Dodane: Odśwież widok graczy na końcu gry
+                this.renderPlayers();
+                
+                return true;
+            }
+        }
+        
+        return false;
     }
-    
-    return false;
-}
 
     // Przejście do następnej tury
     nextTurn() {
@@ -1205,7 +1077,7 @@ checkGameEnd() {
             return; // Zakończ metodę jeśli gra się skończyła
         }
 
-        // Znajdź następnego żywego gracza z kartami, który nie wygrał
+        // Znajdź następnego żywego gracza, który nie wygrał
         let nextPlayerIndex = this.currentPlayerIndex;
         let iterations = 0;
         const playerCount = this.players.length;
@@ -1220,17 +1092,13 @@ checkGameEnd() {
 
                 // Dezaktywuj przyciski gry
                 document.getElementById('play-card').disabled = true;
-                document.getElementById('play-card-2').disabled = true;
-                document.getElementById('play-card-3').disabled = true;
                 document.getElementById('challenge-liar').disabled = true;
-                document.getElementById('take-shot').classList.add('hidden');
 
                 return;
             }
         } while (
             (!this.players[nextPlayerIndex].isAlive ||
-                this.players[nextPlayerIndex].isWinner ||
-                this.players[nextPlayerIndex].cards <= 0) &&
+                this.players[nextPlayerIndex].isWinner) &&
             nextPlayerIndex !== this.currentPlayerIndex
         );
 
@@ -1249,7 +1117,6 @@ checkGameEnd() {
     resetGameWithPlayers() {
         // Resetuj stan graczy
         this.players.forEach(player => {
-            player.cards = this.settings.startingCards;
             player.shotsPulled = this.settings.startingShots;
             player.isAlive = true;
             player.isWinner = false;
@@ -1278,13 +1145,8 @@ checkGameEnd() {
         this.lastAction = null;
         this.playerToShoot = null;
 
-        // Ukryj przycisk strzału
-        document.getElementById('take-shot').classList.add('hidden');
+        // Zaktualizuj przyciski
         document.getElementById('play-card').disabled = false;
-        document.getElementById('play-card-2').disabled = false;
-        document.getElementById('play-card-3').disabled = false;
-
-        // Wyłącz przycisk wyzwania kłamcy na początku gry
         document.getElementById('challenge-liar').disabled = true;
 
         // Renderuj graczy

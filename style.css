@@ -147,6 +147,7 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
     margin: 5px;
+    font-weight: bold;
 }
 
 button:hover {
@@ -165,35 +166,6 @@ button#challenge-liar {
 
 button#challenge-liar:hover {
     background-color: #a00000;
-}
-
-button#take-shot {
-    background-color: #7a0000;
-    font-weight: bold;
-}
-
-button#take-shot:hover {
-    background-color: #900000;
-}
-
-/* Ujednolicenie stylów dla wszystkich przycisków play-card */
-#play-card,
-#play-card-2,
-#play-card-3 {
-    background-color: #3a3a3a;
-    color: #f0f0f0;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin: 5px;
-}
-
-#play-card:hover,
-#play-card-2:hover,
-#play-card-3:hover {
-    background-color: #4a4a4a;
 }
 
 .active {
