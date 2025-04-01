@@ -40,7 +40,7 @@ Deck of Lies to interaktywna gra karciana łącząca elementy blefowania i rosyj
 
 ### Cel gry
 
-Gracze starają się przekonać innych, że ich deklaracje dotyczące posiadanych kart są prawdziwe – nawet jeśli blefują. Celem jest wyeliminowanie przeciwników.
+Gracze starają się przekonać innych, że ich deklaracje dotyczące posiadanych kart są prawdziwe – nawet jeśli blefują. Celem jest wyeliminowanie przeciwników poprzez rosyjską ruletkę lub zostanie ogłoszonym zwycięzcą przez pozostałych graczy. Ostatni aktywny gracz, który nie wygrał, zostaje przegranym.
 
 ### Mechanika gry
 
@@ -50,22 +50,24 @@ Gracze starają się przekonać innych, że ich deklaracje dotyczące posiadanyc
 4. Jeśli deklaracja gracza okazuje się prawdziwa – osoba podważająca musi pociągnąć za spust rewolweru.
 5. Jeśli odkryto blef – gracz, który kłamał, musi pociągnąć za spust.
 6. Po każdym strzale losowana jest nowa karta stołowa.
-7. Gra kończy się, gdy zostanie tylko jeden żywy gracz.
+7. Gracze mogą użyć przycisku "Ogłoś zwycięzcę" [W], aby wybrać aktywnego gracza i ogłosić go zwycięzcą.
+8. Gra kończy się, gdy pozostanie tylko jeden aktywny (żywy i nieogłoszony zwycięzcą) gracz. Ten ostatni gracz przegrywa grę. Gra kończy się również, jeśli wszyscy pozostali gracze zostaną ogłoszeni zwycięzcami.
 
 ![Zasady Gry](images/readme/game-rules.png)
 
 ## Klawisze sterujące
 
 ### Główne skróty
-- **Spacja** - Wykonaj akcję
+- **Spacja** - Wykonaj akcję / Strzel / Akceptuj
 - **C** - Wyzwij kłamcę
+- **W** - Ogłoś zwycięzcę
 - **R** - Reset gry
 - **ESC** - Powrót do menu
 
 ### Podczas wyzwania
 - **Y** - Tak (kłamał)
 - **N** - Nie (mówił prawdę)
-- **Spacja** - Akceptuj
+- **Spacja** / **Enter** / **ESC** - Zamknij okno wyniku
 
 ## Układ klawiatury do gry mobilnej
 

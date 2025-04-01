@@ -128,10 +128,6 @@ class GameManager {
                 'winners-declared': 'Winners have been declared!',
                 'player-becomes-winner': '%s becomes WINNER #%s!',
                 'last-player-loses': 'Last player %s LOSES the game!',
-                'declare-winners-confirm': 'Declare Winner', // Old - keep for now, might remove later
-                'declare-winners-message': 'This will make all living players winners, except for the last one who will become the loser. Continue?', // Old
-                'declare-winners-yes': 'Yes, end the game', // Old
-                'declare-winners-no': 'No, continue playing', // Old
                 // New translations for single winner declaration
                 'declare-winner-btn': 'Declare winner [W]',
                 'confirm-winner-title': 'Confirm Winner',
@@ -248,10 +244,6 @@ class GameManager {
                 'winners-declared': 'Zwycięzcy zostali ogłoszeni!',
                 'player-becomes-winner': '%s zostaje WYGRANYM #%s!',
                 'last-player-loses': 'Ostatni gracz %s PRZEGRYWA grę!',
-                'declare-winners-confirm': 'Ogłoś zwycięzcę', // Old
-                'declare-winners-message': 'To spowoduje, że wszyscy żyjący gracze zostaną zwycięzcami, z wyjątkiem ostatniego, który stanie się przegranym. Kontynuować?', // Old
-                'declare-winners-yes': 'Tak, zakończ grę', // Old
-                'declare-winners-no': 'Nie, kontynuuj grę', // Old
                 // New translations for single winner declaration
                 'declare-winner-btn': 'Ogłoś zwycięzcę [W]',
                 'confirm-winner-title': 'Potwierdź Zwycięzcę',
@@ -339,21 +331,30 @@ class GameManager {
             }
         });
 
-        // Funkcja do przełączania kart (przewracania) i obsługi selektora kart
-        $(document).on('click', '.card', function (e) {
-            // Obsługa klikania w karty w selektorze kart w ustawieniach
-            if ($(this).closest('#table-card-selector').length > 0) {
-                $(this).toggleClass('disabled');
-                $(this).toggleClass('enabled');
-                return;
-            }
-
-            // Standardowe obracanie karty
-            $(this).toggleClass('flip');
-        });
-
         // Add listener for player card clicks (delegated from container)
         document.getElementById('players-container').addEventListener('click', (e) => this.handlePlayerCardClickForWinner(e));
+
+        // Add listener for general card clicks (delegated from document)
+        document.addEventListener('click', (e) => {
+            const cardElement = e.target.closest('.card');
+            if (!cardElement) return; // Clicked outside a card
+
+            // Handle clicks within the table card selector in settings
+            const selectorContainer = cardElement.closest('#table-card-selector');
+            if (selectorContainer) {
+                cardElement.classList.toggle('disabled');
+                cardElement.classList.toggle('enabled');
+                return; // Stop further processing for selector cards
+            }
+
+            // Handle clicks on cards outside the selector (e.g., table card - though flipping isn't used currently)
+            // Check if the card is NOT inside the player container (those are handled separately for winner selection)
+            const playerContainer = cardElement.closest('#players-container');
+            if (!playerContainer) {
+                 // Example: Toggle flip class if needed for other cards in the future
+                 // cardElement.classList.toggle('flip');
+            }
+        });
     }
 
     // Główna funkcja obsługująca akcje - zagranie karty lub strzał

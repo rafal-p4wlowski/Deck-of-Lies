@@ -40,7 +40,7 @@ Deck of Lies is an interactive card game that combines elements of bluffing and 
 
 ### Game Objective
 
-Players try to convince others that their declarations about the cards they hold are true – even if they're bluffing. The goal is to eliminate opponents.
+Players try to convince others that their declarations about the cards they hold are true – even if they're bluffing. The goal is to eliminate opponents through Russian Roulette or be declared a winner by the other players. The last remaining active player who hasn't won becomes the loser.
 
 ### Game Mechanics
 
@@ -50,22 +50,24 @@ Players try to convince others that their declarations about the cards they hold
 4. If a player's declaration turns out to be true – the challenger must pull the trigger of the revolver.
 5. If bluffing is discovered – the player who lied must pull the trigger.
 6. After each shot, a new table card is drawn.
-7. The game ends when only one living player remains.
+7. Players can use the "Declare Winner" [W] button to select an active player and declare them a winner.
+8. The game ends when only one active (alive and not declared a winner) player remains. This last player loses the game. The game also ends if all remaining players are declared winners.
 
 ![Game Rules](images/readme/game-rules.png)
 
 ## Control Keys
 
 ### Main Shortcuts
-- **Space** - Perform action
+- **Space** - Perform action / Shoot / Accept
 - **C** - Challenge liar
+- **W** - Declare winner
 - **R** - Reset game
 - **ESC** - Return to menu
 
 ### During Challenge
 - **Y** - Yes (was lying)
 - **N** - No (was telling the truth)
-- **Space** - Accept
+- **Space** / **Enter** / **ESC** - Close result modal
 
 ## Mobile Keyboard Layout
 
