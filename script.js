@@ -402,27 +402,27 @@ class GameManager {
                 } else if (openModal.querySelector('#close-result')) {
                     // To jest modal z wynikiem strzału, obsłuż zamknięcie
                     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
-                        openModal.querySelector('#close-result').click();
-                    }
-                } else if (openModal.id === 'confirmWinnerModal') { // Check for the specific winner confirmation modal
-                    // To jest modal potwierdzenia ogłoszenia zwycięzcy
-                    switch (e.key.toLowerCase()) {
-                        case 'y':
-                            // Symuluj kliknięcie przycisku "Tak"
-                            openModal.querySelector('#confirmWinnerYes').click();
-                            break;
-                        case 'n':
-                            // Symuluj kliknięcie przycisku "Nie"
-                            openModal.querySelector('#confirmWinnerNo').click();
-                            break;
-                        case 'escape': // Optional: Allow Escape to cancel
-                            openModal.querySelector('#confirmWinnerNo').click();
-                            break;
-                    }
-                } else if (openModal.querySelector('#confirm-winners')) { // Keep the old logic for the multi-winner modal if it exists elsewhere
-                    // To jest modal potwierdzenia ogłoszenia zwycięzców (multiple)
-                    switch (e.key.toLowerCase()) {
-                        case 'y':
+                            openModal.querySelector('#close-result').click();
+                        }
+                    } else if (openModal.querySelector('#confirmWinnerYesDynamic') && openModal.querySelector('#confirmWinnerNoDynamic')) { // Check for the dynamic winner confirmation buttons
+                        // To jest dynamiczny modal potwierdzenia ogłoszenia zwycięzcy
+                        switch (e.key.toLowerCase()) {
+                            case 'y':
+                                // Symuluj kliknięcie przycisku "Tak"
+                                openModal.querySelector('#confirmWinnerYesDynamic').click();
+                                break;
+                            case 'n':
+                                // Symuluj kliknięcie przycisku "Nie"
+                                openModal.querySelector('#confirmWinnerNoDynamic').click();
+                                break;
+                            case 'escape': // Optional: Allow Escape to cancel
+                                openModal.querySelector('#confirmWinnerNoDynamic').click();
+                                break;
+                        }
+                    } else if (openModal.querySelector('#confirm-winners')) { // Keep the old logic for the multi-winner modal if it exists elsewhere
+                        // To jest modal potwierdzenia ogłoszenia zwycięzców (multiple)
+                        switch (e.key.toLowerCase()) {
+                            case 'y':
                             openModal.querySelector('#confirm-winners').click();
                             break;
                         case 'n':
@@ -517,34 +517,13 @@ class GameManager {
 
     // Shows the modal to confirm the selected winner
     showConfirmWinnerModal(player) {
-        const modal = document.getElementById('confirmWinnerModal');
-        const messageElement = document.getElementById('confirmWinnerMessage');
-        const yesButton = document.getElementById('confirmWinnerYes');
-        const noButton = document.getElementById('confirmWinnerNo');
-
-        messageElement.textContent = this.formatMessage('confirm-winner-message', player.name);
-
-        // Remove previous listeners if any, before adding new ones
-        const newYesButton = yesButton.cloneNode(true);
-        yesButton.parentNode.replaceChild(newYesButton, yesButton);
-        newYesButton.addEventListener('click', () => this.confirmWinner(player));
-
-        const newNoButton = noButton.cloneNode(true);
-        noButton.parentNode.replaceChild(newNoButton, noButton);
-        newNoButton.addEventListener('click', () => this.cancelWinnerSelection());
-
+        // Dynamically create the modal
+        const modal = document.createElement('div');
+        modal.className = 'modal';
         modal.style.display = 'block';
-    }
+        this.activeModal = modal; // Store reference to remove later
 
-    // Confirms the selected player as a winner
-    confirmWinner(player) {
-        const modal = document.getElementById('confirmWinnerModal');
-        modal.style.display = 'none';
-
-        this.winnerCount++;
-        player.isWinner = true;
-        player.winnerRank = this.winnerCount;
-        const modalContent = document.createElement('div');
+        let modalContent = document.createElement('div');
         modalContent.className = 'modal-content';
 
         // Use translated strings for buttons
@@ -560,17 +539,19 @@ class GameManager {
 
         modal.appendChild(modalContent);
         document.body.appendChild(modal);
-        this.activeModal = modal; // Store reference to the active modal
 
         // Add event listeners to the new buttons
-        document.getElementById('confirmWinnerYesDynamic').addEventListener('click', () => this.confirmWinner(player));
-        document.getElementById('confirmWinnerNoDynamic').addEventListener('click', () => this.cancelWinnerSelection());
+        modal.querySelector('#confirmWinnerYesDynamic').addEventListener('click', () => this.confirmWinner(player));
+        modal.querySelector('#confirmWinnerNoDynamic').addEventListener('click', () => this.cancelWinnerSelection());
     }
 
     // Confirms the selected player as a winner
     confirmWinner(player) {
-        const modal = document.getElementById('confirmWinnerModal');
-        modal.style.display = 'none';
+        // Remove the dynamically created modal
+        if (this.activeModal) {
+            document.body.removeChild(this.activeModal);
+            this.activeModal = null;
+        }
 
         this.winnerCount++;
         player.isWinner = true;
@@ -607,8 +588,11 @@ class GameManager {
 
     // Cancels the winner selection process
     cancelWinnerSelection() {
-        const modal = document.getElementById('confirmWinnerModal');
-        modal.style.display = 'none';
+        // Remove the dynamically created modal
+        if (this.activeModal) {
+            document.body.removeChild(this.activeModal);
+            this.activeModal = null;
+        }
 
         this.isSelectingWinner = false;
         this.playerToDeclareWinner = null;
