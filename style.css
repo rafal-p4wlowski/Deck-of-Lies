@@ -370,19 +370,6 @@ button#win:hover {
     text-align: center;
 }
 
-.result-display {
-    font-size: 24px;
-    margin: 20px 0;
-}
-
-.success {
-    color: #4CAF50;
-}
-
-.failure {
-    color: #f44336;
-}
-
 /* Styl dla zwycięzców */
 .player-card.winner {
     background-color: #2e8b57;

@@ -40,7 +40,6 @@ class GameManager {
                 'declare-winners': 'Declare winner',
                 'reset': 'Reset game',
                 'return-to-menu': 'Return to menu',
-                'during-challenge': 'During challenge',
                 'yes': 'Yes', // Corrected: Removed trailing space
                 'no': 'No',
 
@@ -119,10 +118,6 @@ class GameManager {
                 'player-died': '%s did NOT survive the shot! (%s/6)',
                 'no-more-players': 'GAME OVER! There are no more active players!',
                 'game-reset': 'Game reset!',
-                'shot-result': 'Shot Result',
-                'survived': 'SURVIVED!',
-                'died': 'DIED!',
-                'survival-chance': 'Survival chance: %s%',
                 'table-card-info': 'Table card: %s %s',
                 // Nowe wiadomości dla funkcji Win
                 'winners-declared': 'Winners have been declared!',
@@ -156,7 +151,6 @@ class GameManager {
                 'declare-winners': 'Ogłoś zwycięzcę',
                 'reset': 'Reset gry',
                 'return-to-menu': 'Powrót do menu',
-                'during-challenge': 'Podczas wyzwania',
                 'yes': 'Tak',
                 'no': 'Nie',
 
@@ -235,10 +229,6 @@ class GameManager {
                 'player-died': '%s NIE przeżył strzału! (%s/6)',
                 'no-more-players': 'KONIEC GRY! Nie ma więcej aktywnych graczy!',
                 'game-reset': 'Gra zresetowana!',
-                'shot-result': 'Wynik strzału',
-                'survived': 'PRZEŻYŁ!',
-                'died': 'ZMARŁ!',
-                'survival-chance': 'Szansa na przeżycie: %s%',
                 'table-card-info': 'Karta stołowa: %s %s',
                 // Nowe wiadomości dla funkcji Win
                 'winners-declared': 'Zwycięzcy zostali ogłoszeni!',
@@ -399,11 +389,6 @@ class GameManager {
                             openModal.querySelector('#was-truthful').click();
                             break;
                     }
-                } else if (openModal.querySelector('#close-result')) {
-                    // To jest modal z wynikiem strzału, obsłuż zamknięcie
-                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
-                            openModal.querySelector('#close-result').click();
-                        }
                     } else if (openModal.querySelector('#confirmWinnerYesDynamic') && openModal.querySelector('#confirmWinnerNoDynamic')) { // Check for the dynamic winner confirmation buttons
                         // To jest dynamiczny modal potwierdzenia ogłoszenia zwycięzcy
                         switch (e.key.toLowerCase()) {
@@ -419,20 +404,8 @@ class GameManager {
                                 openModal.querySelector('#confirmWinnerNoDynamic').click();
                                 break;
                         }
-                    } else if (openModal.querySelector('#confirm-winners')) { // Keep the old logic for the multi-winner modal if it exists elsewhere
-                        // To jest modal potwierdzenia ogłoszenia zwycięzców (multiple)
-                        switch (e.key.toLowerCase()) {
-                            case 'y':
-                            openModal.querySelector('#confirm-winners').click();
-                            break;
-                        case 'n':
-                            openModal.querySelector('#cancel-winners').click();
-                            break;
-                        case 'escape':
-                            openModal.querySelector('#cancel-winners').click();
-                            break;
                     }
-                }
+                    // Removed handling for old '#confirm-winners' modal
                 return;
             }
 
@@ -1140,85 +1113,63 @@ class GameManager {
         const result = Math.random();
         const survived = result > deathChance;
 
-        // Przygotuj modal z wynikiem
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-        modal.style.display = 'block';
+        // --- Logic moved from modal close handler ---
+        if (!survived) {
+            currentPlayer.isAlive = false;
 
-        let modalContent = document.createElement('div');
-        modalContent.className = 'modal-content';
+            // Sprawdź czy zostało tylko dwóch graczy, z których jeden właśnie zmarł
+            const alivePlayers = this.players.filter(player => player.isAlive);
+            const nonWinners = this.players.filter(player => !player.isWinner && player.isAlive);
 
-        modalContent.innerHTML = `
-        <h3>${this.formatMessage('shot-result')}</h3>
-        <div class="result-display ${survived ? 'success' : 'failure'}">
-            ${survived ? this.formatMessage('survived') : this.formatMessage('died')}
-        </div>
-        <p>${currentPlayer.name} - ${currentPlayer.shotsPulled}/6</p>
-        <p>${this.formatMessage('survival-chance', Math.round((1 - deathChance) * 100))}</p>
-        <button id="close-result">OK</button>
-    `;
-
-        modal.appendChild(modalContent);
-        document.body.appendChild(modal);
-
-        document.getElementById('close-result').addEventListener('click', () => {
-            if (!survived) {
-                currentPlayer.isAlive = false;
-
-                // Sprawdź czy zostało tylko dwóch graczy, z których jeden właśnie zmarł
-                const alivePlayers = this.players.filter(player => player.isAlive);
-                const nonWinners = this.players.filter(player => !player.isWinner && player.isAlive);
-
-                // Jeśli pozostał tylko jeden żywy gracz i nie ma jeszcze statusu zwycięzcy
-                if (alivePlayers.length === 1 && nonWinners.length === 1) {
-                    const lastAlivePlayer = alivePlayers[0];
-                    if (!lastAlivePlayer.isWinner) {
-                        this.winnerCount++;
-                        lastAlivePlayer.isWinner = true;
-                        lastAlivePlayer.winnerRank = this.winnerCount;
-                        this.log(this.formatMessage('player-got-rid', lastAlivePlayer.name, lastAlivePlayer.winnerRank));
-                    }
+            // Jeśli pozostał tylko jeden żywy gracz i nie ma jeszcze statusu zwycięzcy
+            if (alivePlayers.length === 1 && nonWinners.length === 1) {
+                const lastAlivePlayer = alivePlayers[0];
+                if (!lastAlivePlayer.isWinner) {
+                    this.winnerCount++;
+                    lastAlivePlayer.isWinner = true;
+                    lastAlivePlayer.winnerRank = this.winnerCount;
+                    this.log(this.formatMessage('player-got-rid', lastAlivePlayer.name, lastAlivePlayer.winnerRank));
                 }
             }
+        }
 
-            document.body.removeChild(modal);
+        // Log the result immediately
+        if (survived) {
+            this.log(this.formatMessage('player-survived', currentPlayer.name, currentPlayer.shotsPulled));
+        } else {
+            this.log(this.formatMessage('player-died', currentPlayer.name, currentPlayer.shotsPulled));
+        }
 
-            if (survived) {
-                this.log(this.formatMessage('player-survived', currentPlayer.name, currentPlayer.shotsPulled));
-            } else {
-                this.log(this.formatMessage('player-died', currentPlayer.name, currentPlayer.shotsPulled));
-            }
-
-            // Po przeżyciu/śmierci gracza, resetujemy status wasCheckedAsLiar dla wszystkich graczy
-            this.players.forEach(player => {
-                player.wasCheckedAsLiar = false;
-            });
-
-            // Losuj nową kartę stołową po strzale
-            this.tableCard = this.cardTypes[Math.floor(Math.random() * this.cardTypes.length)];
-            this.tableSuit = this.suits[Math.floor(Math.random() * this.suits.length)];
-
-            // Wyświetl nową kartę stołową
-            this.displayTableCard();
-
-            // Resetuj wskaźnik gracza do strzelania
-            this.playerToShoot = null;
-
-            // Zaktualizuj przyciski
-            document.getElementById('play-card').disabled = false;
-            document.getElementById('challenge-liar').disabled = true;
-
-            // Aktualizuj graczy
-            this.renderPlayers();
-
-            // Przejdź do następnej tury jeśli gracz nie żyje
-            if (!currentPlayer.isAlive) {
-                this.nextTurn();
-            }
-
-            // Sprawdź czy koniec gry
-            this.checkGameEnd();
+        // Po przeżyciu/śmierci gracza, resetujemy status wasCheckedAsLiar dla wszystkich graczy
+        this.players.forEach(player => {
+            player.wasCheckedAsLiar = false;
         });
+
+        // Losuj nową kartę stołową po strzale
+        this.tableCard = this.cardTypes[Math.floor(Math.random() * this.cardTypes.length)];
+        this.tableSuit = this.suits[Math.floor(Math.random() * this.suits.length)];
+
+        // Wyświetl nową kartę stołową
+        this.displayTableCard();
+
+        // Resetuj wskaźnik gracza do strzelania
+        this.playerToShoot = null;
+
+        // Zaktualizuj przyciski
+        document.getElementById('play-card').disabled = false;
+        document.getElementById('challenge-liar').disabled = true;
+
+        // Aktualizuj graczy
+        this.renderPlayers();
+
+        // Przejdź do następnej tury jeśli gracz nie żyje
+        if (!currentPlayer.isAlive) {
+            this.nextTurn();
+        }
+
+        // Sprawdź czy koniec gry
+        this.checkGameEnd();
+        // --- End of moved logic ---
     }
 
     // Sprawdzenie czy gra się zakończyła
