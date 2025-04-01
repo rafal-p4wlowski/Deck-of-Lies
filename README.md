@@ -8,7 +8,7 @@ Deck of Lies to interaktywna gra karciana dostępna za darmo online. Zagraj tera
 
 Deck of Lies to interaktywna gra karciana łącząca elementy blefowania i rosyjskiej ruletki. Ta gra jest inspirowana mechaniką popularnych gier blefowania, będąc nieoficjalną interpretacją koncepcji łączących taktyczne zagrania karciane z elementem losowości.
 
-![Main Menu](main-menu.png)
+![Main Menu](images/readme/main-menu.png)
 
 ## Funkcje
 
@@ -23,16 +23,16 @@ Deck of Lies to interaktywna gra karciana łącząca elementy blefowania i rosyj
 ## Interfejs gry
 
 ### Menu główne
-![Main Menu](main-menu.png)
+![Main Menu](images/readme/main-menu.png)
 
 ### Nowa gra
-![New Game](new-game.png)
+![New Game](images/readme/new-game.png)
 
 ### Ustawienia
-![Settings](settings.png)
+![Settings](images/readme/settings.png)
 
 ### Ekran rozgrywki
-![Game Screen](game-screen.png)
+![Game Screen](images/readme/game-screen.png)
 
 ## Technologie
 
@@ -57,7 +57,7 @@ Gracze starają się przekonać innych, że ich deklaracje dotyczące posiadanyc
 6. Po każdym strzale rozdawane są nowe karty i losowana jest nowa karta stołowa.
 7. Gra kończy się, gdy zostanie tylko jeden żywy gracz lub gdy gracz pozbędzie się wszystkich kart.
 
-![Game Rules](game-rules.png)
+![Game Rules](images/readme/game-rules.png)
 
 ## Układ klawiatury do gry mobilnej
 
