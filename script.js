@@ -41,7 +41,7 @@ class GameManager {
                 'reset': 'Reset game',
                 'return-to-menu': 'Return to menu',
                 'during-challenge': 'During challenge',
-                'yes': 'Yes',
+                'yes': 'Yes', // Corrected: Removed trailing space
                 'no': 'No',
 
                 // Ekran gry
@@ -404,8 +404,23 @@ class GameManager {
                     if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
                         openModal.querySelector('#close-result').click();
                     }
-                } else if (openModal.querySelector('#confirm-winners')) {
-                    // To jest modal potwierdzenia ogłoszenia zwycięzców
+                } else if (openModal.id === 'confirmWinnerModal') { // Check for the specific winner confirmation modal
+                    // To jest modal potwierdzenia ogłoszenia zwycięzcy
+                    switch (e.key.toLowerCase()) {
+                        case 'y':
+                            // Symuluj kliknięcie przycisku "Tak"
+                            openModal.querySelector('#confirmWinnerYes').click();
+                            break;
+                        case 'n':
+                            // Symuluj kliknięcie przycisku "Nie"
+                            openModal.querySelector('#confirmWinnerNo').click();
+                            break;
+                        case 'escape': // Optional: Allow Escape to cancel
+                            openModal.querySelector('#confirmWinnerNo').click();
+                            break;
+                    }
+                } else if (openModal.querySelector('#confirm-winners')) { // Keep the old logic for the multi-winner modal if it exists elsewhere
+                    // To jest modal potwierdzenia ogłoszenia zwycięzców (multiple)
                     switch (e.key.toLowerCase()) {
                         case 'y':
                             openModal.querySelector('#confirm-winners').click();
@@ -519,6 +534,37 @@ class GameManager {
         newNoButton.addEventListener('click', () => this.cancelWinnerSelection());
 
         modal.style.display = 'block';
+    }
+
+    // Confirms the selected player as a winner
+    confirmWinner(player) {
+        const modal = document.getElementById('confirmWinnerModal');
+        modal.style.display = 'none';
+
+        this.winnerCount++;
+        player.isWinner = true;
+        player.winnerRank = this.winnerCount;
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+
+        // Use translated strings for buttons
+        const yesText = this.formatMessage('yes');
+        const noText = this.formatMessage('no');
+
+        modalContent.innerHTML = `
+            <h3 data-lang="confirm-winner-title">${this.formatMessage('confirm-winner-title')}</h3>
+            <p>${this.formatMessage('confirm-winner-message', player.name)}</p>
+            <button id="confirmWinnerYesDynamic">${yesText} [Y]</button>
+            <button id="confirmWinnerNoDynamic">${noText} [N]</button>
+        `;
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+        this.activeModal = modal; // Store reference to the active modal
+
+        // Add event listeners to the new buttons
+        document.getElementById('confirmWinnerYesDynamic').addEventListener('click', () => this.confirmWinner(player));
+        document.getElementById('confirmWinnerNoDynamic').addEventListener('click', () => this.cancelWinnerSelection());
     }
 
     // Confirms the selected player as a winner
@@ -1334,10 +1380,11 @@ class GameManager {
         this.lastAction = null;
         this.playerToShoot = null;
 
-        // Zaktualizuj przyciski
-        document.getElementById('play-card').disabled = false;
-        document.getElementById('challenge-liar').disabled = true;
-        document.getElementById('win').disabled = false;
+        // Zaktualizuj przyciski - Upewnij się, że stan jest poprawny na start gry/reset
+        document.getElementById('play-card').disabled = false; // Główna akcja zawsze dostępna na start tury
+        document.getElementById('challenge-liar').disabled = true; // Nie można wyzwać na początku tury
+        document.getElementById('win').disabled = false; // Ogłoszenie zwycięzcy dostępne
+        document.getElementById('reset-game').disabled = false; // Reset zawsze dostępny podczas gry
 
         // Renderuj graczy
         this.renderPlayers();
