@@ -1,6 +1,6 @@
 # Deck of Lies
 
-## [Play Deck of Lies Online](https://im-rafax.github.io/Deck-of-Lies/)
+## [Play Deck of Lies Online](rafal-p4wlowski.github.io/Deck-of-Lies/)
 
 Deck of Lies to interaktywna gra karciana dostępna za darmo online. Zagraj teraz!
 
